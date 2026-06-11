@@ -86,7 +86,27 @@ function App() {
   >('home');
   const [selectedPropertyId, setSelectedPropertyId] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterError, setNewsletterError] = useState<string | null>(null);
+  const [newsletterSuccess, setNewsletterSuccess] = useState(false);
   const favorites = useStore((state) => state.favorites);
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = newsletterEmail.trim();
+    if (!trimmed) {
+      setNewsletterError('Email address is required.');
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmed)) {
+      setNewsletterError('Please enter a valid email address.');
+      return;
+    }
+    setNewsletterError(null);
+    setNewsletterSuccess(true);
+    setNewsletterEmail('');
+  };
 
   // Listen to hash changes for robust routing without router peer dependency problems
   useEffect(() => {
@@ -178,8 +198,8 @@ function App() {
   return (
     <div className="min-h-screen bg-white text-obsidian-900 flex flex-col font-sans">
       {/* Sticky Header */}
-      <header className="sticky top-0 z-30 w-full bg-white/95 border-b border-obsidian-200/60 backdrop-blur-md py-4 transition-all">
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <header className="sticky top-0 z-30 w-full h-[72px] bg-white/95 border-b border-obsidian-200/60 backdrop-blur-md transition-all">
+        <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
           {/* Logo */}
           <a href="#/" className="flex items-center gap-2 group">
             <Sparkles className="w-5 h-5 text-gold-600 group-hover:rotate-12 transition-transform duration-350" />
@@ -420,28 +440,54 @@ function App() {
             <p className="leading-relaxed font-light">
               Subscribe to receive private invitations to newly onboarded villas and luxury estates.
             </p>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert('Thank you for subscribing to our VIP newsletter.');
-              }}
-              noValidate
-              className="flex items-center bg-obsidian-900 border border-obsidian-800 rounded-lg overflow-hidden p-1.5 focus-within:border-gold-500/50"
-            >
-              <Mail className="w-4 h-4 text-obsidian-500 ml-2 flex-shrink-0" />
-              <input
-                type="email"
-                placeholder="vip@email.com"
-                required
-                className="w-full bg-transparent border-0 px-2.5 py-1 text-xs text-obsidian-200 placeholder-obsidian-600 focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="bg-gold-500 text-obsidian-950 font-bold px-3 py-1.5 rounded text-[10px] uppercase tracking-wider hover:bg-gold-400 transition-colors cursor-pointer"
+            {newsletterSuccess ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="p-4 bg-gold-950/20 border border-gold-500/30 rounded-xl text-left"
               >
-                Join
-              </button>
-            </form>
+                <span className="font-semibold text-gold-400 block text-xs mb-1">
+                  Invitation Dispatched
+                </span>
+                <p className="text-[11px] text-obsidian-300 leading-normal font-light">
+                  Thank you. Your email has been verified. Welcome to L'ESTATE’s inner circle.
+                </p>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleNewsletterSubmit} noValidate className="flex flex-col gap-2">
+                <div className="flex items-center bg-obsidian-900 border border-obsidian-800 rounded-lg overflow-hidden p-1.5 focus-within:border-gold-500/50">
+                  <Mail className="w-4 h-4 text-obsidian-500 ml-2 flex-shrink-0" />
+                  <input
+                    type="email"
+                    placeholder="vip@email.com"
+                    value={newsletterEmail}
+                    onChange={(e) => {
+                      setNewsletterEmail(e.target.value);
+                      if (newsletterError) setNewsletterError(null);
+                    }}
+                    className="w-full bg-transparent border-0 px-2.5 py-1 text-xs text-obsidian-200 placeholder-obsidian-600 focus:outline-none"
+                  />
+                  <button
+                    type="submit"
+                    className="bg-gold-500 text-obsidian-950 font-bold px-3 py-1.5 rounded text-[10px] uppercase tracking-wider hover:bg-gold-400 transition-colors cursor-pointer"
+                  >
+                    Join
+                  </button>
+                </div>
+                <AnimatePresence>
+                  {newsletterError && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -5 }}
+                      className="text-[10px] text-red-500 font-medium text-left px-1"
+                    >
+                      {newsletterError}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </form>
+            )}
           </div>
         </div>
 

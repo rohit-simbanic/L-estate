@@ -2,6 +2,12 @@
 
 L'ESTATE is a high-end, editorial vacation rentals portal designed for curating, exploring, and booking ultra-luxury properties. The application has been developed to meet elite branding standards and features premium light-mode visual tokens, dynamic micro-interactions, responsive form validators, and synchronized map listings.
 
+## 🎨 Design Reference
+
+This implementation is modeled after the following professional Figma design file:
+
+- **Figma Design File:** [Luxury Real Estate Rental Website (Community)](https://www.figma.com/design/z6McXILT0IbMTyDJZM00Ii/Luxury-Real-Estate-Rental-Website--Community-?node-id=70-2846&p=f&t=70LZXZFVok2gzDDm-0)
+
 ---
 
 ## 🚀 Key Features
@@ -112,7 +118,7 @@ Inspect code formatting and TypeScript rules compliance.
 
 The project includes a GitHub Actions CI/CD workflow (`.github/workflows/deploy.yml`):
 
-1. Triggered automatically on code pushes and pull requests to the `master` branch.
+1. Triggered automatically on code pushes and pull requests to the `main` branch.
 2. Sets up Node, runs ESLint and Prettier formatting checks.
 3. Builds the production code (`npm run build`).
 4. Deploys static build chunks directly to **Vercel Production Environment** using secure tokens.

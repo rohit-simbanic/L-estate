@@ -113,9 +113,9 @@ export const Home: React.FC = () => {
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <div className="relative min-h-[90vh] md:h-[85vh] w-full flex items-center justify-center overflow-hidden py-16 md:py-0">
+      <div className="relative min-h-[90vh] md:h-[85vh] w-full flex items-center justify-center py-16 md:py-0">
         {/* Background Image with dark overlay */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 overflow-hidden">
           <img
             src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80"
             alt="Luxury Estate Backdrop"

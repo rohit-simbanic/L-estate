@@ -52,7 +52,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   const modalClasses = twMerge(
     clsx(
-      'w-full bg-white border border-obsidian-200 text-obsidian-900 rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh] md:max-h-[85vh]',
+      'w-full bg-white border border-obsidian-200 text-obsidian-900 rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh] md:max-h-[85vh] relative z-10',
       sizes[size],
       className,
     ),
@@ -61,7 +61,7 @@ export const Modal: React.FC<ModalProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 overflow-hidden">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-6 overflow-hidden">
           {/* Backdrop */}
           <motion.div
             className="fixed inset-0 bg-obsidian-950/40 backdrop-blur-xs"

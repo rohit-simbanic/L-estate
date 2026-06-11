@@ -561,7 +561,7 @@ export const ItemDetail: React.FC<ItemDetailProps> = ({ propertyId }) => {
       {/* Full-Screen Image Lightbox Modal */}
       <AnimatePresence>
         {lightboxOpen && (
-          <div className="fixed inset-0 z-50 bg-black/95 flex flex-col items-center justify-center p-4">
+          <div className="fixed inset-0 z-[9999] bg-black/95 flex flex-col items-center justify-center p-4">
             <button
               onClick={() => setLightboxOpen(false)}
               className="absolute top-6 right-6 p-2 rounded-full bg-obsidian-800/80 border border-obsidian-700 text-obsidian-300 hover:text-gold-400 hover:border-gold-400 transition-colors z-50 cursor-pointer"

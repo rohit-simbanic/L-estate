@@ -25,3 +25,6 @@ dist-ssr
 
 *storybook.log
 storybook-static
+.vercel
+.env
+.env*.local
