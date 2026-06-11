@@ -198,7 +198,7 @@ function App() {
   return (
     <div className="min-h-screen bg-white text-obsidian-900 flex flex-col font-sans">
       {/* Sticky Header */}
-      <header className="sticky top-0 z-30 w-full h-[72px] bg-white/95 border-b border-obsidian-200/60 backdrop-blur-md transition-all">
+      <header className="sticky top-0 z-[2010] w-full h-[72px] bg-white/95 border-b border-obsidian-200/60 backdrop-blur-md transition-all">
         <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
           {/* Logo */}
           <a href="#/" className="flex items-center gap-2 group">
@@ -277,7 +277,7 @@ function App() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden w-full bg-white border-b border-obsidian-200 absolute top-[72px] left-0 z-20 overflow-hidden shadow-2xl"
+            className="md:hidden w-full bg-white border-b border-obsidian-200 absolute top-[72px] left-0 z-[2000] overflow-hidden shadow-2xl"
           >
             <div className="px-6 py-8 flex flex-col gap-6 text-sm font-bold uppercase tracking-wider text-left">
               {navLinks.map((link) => {
@@ -347,7 +347,9 @@ function App() {
       </main>
 
       {/* Premium Footer */}
-      <footer className="w-full bg-obsidian-950 border-t border-obsidian-800/60 py-16 text-left text-xs text-obsidian-400">
+      <footer
+        className={`w-full bg-obsidian-950 border-t border-obsidian-800/60 py-16 text-left text-xs text-obsidian-400 ${currentPage === 'search' ? 'hidden lg:block' : 'block'}`}
+      >
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Logo & Pitch */}
           <div className="space-y-4">

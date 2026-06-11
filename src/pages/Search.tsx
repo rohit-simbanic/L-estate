@@ -194,14 +194,14 @@ export const Search: React.FC = () => {
 
         {/* Map Section (40% on desktop) */}
         <div
-          className={`w-full lg:w-[40%] h-[calc(90vh-80px)] lg:sticky lg:top-[128px] overflow-hidden ${mobileViewMode === 'list' ? 'hidden lg:block' : 'block'}`}
+          className={`w-full lg:w-[40%] h-[calc(100vh-144px)] lg:h-[calc(90vh-80px)] lg:sticky lg:top-[128px] overflow-hidden ${mobileViewMode === 'list' ? 'hidden lg:block' : 'block'}`}
         >
           <Map properties={filteredProperties} onPopupClick={handlePopupClick} />
         </div>
       </div>
 
       {/* Floating Toggle Button for Mobile View */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 lg:hidden">
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[1010] lg:hidden">
         <button
           onClick={() => setMobileViewMode((prev) => (prev === 'list' ? 'map' : 'list'))}
           className="flex items-center gap-2 px-5 py-3 rounded-full bg-gold-600 text-white font-bold text-xs shadow-2xl hover:bg-gold-700 transition-all border border-gold-600 cursor-pointer"
