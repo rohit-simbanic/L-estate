@@ -23,6 +23,7 @@ export const Search: React.FC = () => {
   const [showFiltersModal, setShowFiltersModal] = useState(false);
   const [mobileViewMode, setMobileViewMode] = useState<'list' | 'map'>('list');
   const [loading, setLoading] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [displayedProperties, setDisplayedProperties] = useState<Property[]>(() =>
     getFilteredProperties(),
   );
@@ -41,6 +42,15 @@ export const Search: React.FC = () => {
       clearTimeout(timer);
     };
   }, [filters, getFilteredProperties]);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handlePropertySelect = (property: Property) => {
     window.location.hash = `#/item/${property.id}`;
@@ -196,7 +206,9 @@ export const Search: React.FC = () => {
         <div
           className={`w-full lg:w-[40%] h-[calc(100vh-144px)] lg:h-[calc(90vh-80px)] lg:sticky lg:top-[128px] overflow-hidden ${mobileViewMode === 'list' ? 'hidden lg:block' : 'block'}`}
         >
-          <Map properties={filteredProperties} onPopupClick={handlePopupClick} />
+          {(!isMobile || mobileViewMode === 'map') && (
+            <Map properties={filteredProperties} onPopupClick={handlePopupClick} />
+          )}
         </div>
       </div>
 

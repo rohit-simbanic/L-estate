@@ -23,16 +23,25 @@ const ChangeView: React.FC<{ center: [number, number]; zoom: number; properties:
   const map = useMap();
 
   useEffect(() => {
-    if (properties.length === 1) {
-      // Pan to the single selected property
-      map.flyTo(properties[0].coordinates, 13, { duration: 1.5 });
-    } else if (properties.length > 1) {
-      // Fit bounds to cover all visible properties
-      const bounds = L.latLngBounds(properties.map((p) => p.coordinates));
-      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 12, animate: true, duration: 1.2 });
-    } else {
-      // Default fallback
-      map.flyTo(center, zoom, { duration: 1.5 });
+    try {
+      const size = map.getSize();
+      if (size.x === 0 || size.y === 0) {
+        return; // Skip if map container has no size (hidden/unmounted)
+      }
+
+      if (properties.length === 1) {
+        // Pan to the single selected property
+        map.flyTo(properties[0].coordinates, 13, { duration: 1.5 });
+      } else if (properties.length > 1) {
+        // Fit bounds to cover all visible properties
+        const bounds = L.latLngBounds(properties.map((p) => p.coordinates));
+        map.fitBounds(bounds, { padding: [50, 50], maxZoom: 12, animate: true, duration: 1.2 });
+      } else {
+        // Default fallback
+        map.flyTo(center, zoom, { duration: 1.5 });
+      }
+    } catch {
+      // Gracefully catch leaflet sizing and rendering errors
     }
   }, [center, zoom, properties, map]);
 
